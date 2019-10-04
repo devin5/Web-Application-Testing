@@ -17,6 +17,65 @@ function App() {
 
   const [awayRuns, setAwayRuns] = useState(0);
 
+  const aOut = () => {
+    if (awayOut < 2) {
+      setAwayStrike(0);
+      setAwayBall(0);
+      setAwayOut(awayOut + 1);
+    } else {
+      setAwayStrike(0);
+      setAwayBall(0);
+      setAwayOut(0);
+      setAwayHits(0);
+    }
+  };
+
+  const hOut = () => {
+    if (homeOut < 2) {
+      setHomeStrike(0);
+      setHomeBall(0);
+      setHomeOut(homeOut + 1);
+    } else {
+      setHomeStrike(0);
+      setHomeBall(0);
+      setHomeOut(0);
+      setHomeHits(0);
+    }
+  };
+  // hit function
+  const hHit = () => {
+    if (homeHits < 3) {
+      setHomeHits(homeHits + 1);
+    } else {
+      setHomeHits(homeHits + 1);
+      setHomeRuns(homeRuns + 1);
+    }
+  };
+
+  const aHit = () => {
+    if (awayHits < 3) {
+      setAwayHits(awayHits + 1);
+    } else {
+      setAwayHits(awayHits + 1);
+      setAwayRuns(awayRuns + 1);
+    }
+  };
+  // foul functions
+  const hFoul = () => {
+    if (homeStrike < 2) {
+      setHomeStrike(homeStrike + 1);
+    } else {
+      return 0;
+    }
+  };
+
+  const aFoul = () => {
+    if (awayStrike < 2) {
+      setAwayStrike(awayStrike + 1);
+    } else {
+      return 0;
+    }
+  };
   // strike functions fro both teams
   const hStrike = () => {
     if (homeStrike < 2) {
@@ -86,26 +145,39 @@ function App() {
 
   return (
     <div className="App">
-      <Veiw
-        strike={hStrike}
-        ball={hBall}
-        stateStrike={homeStrike}
-        stateHits={homeHits}
-        stateOut={homeOut}
-        stateBall={homeBall}
-        stateRuns={homeRuns}
-        team={homeTeam}
-      />
-      <Veiw
-        strike={aStrike}
-        ball={aBall}
-        stateStrike={awayStrike}
-        stateHits={awayHits}
-        stateOut={awayOut}
-        stateBall={awayBall}
-        stateRuns={awayRuns}
-        team={awayTeam}
-      />
+      <div className="container">
+        <div className="contain">
+          <Veiw
+            out={hOut}
+            hit={hHit}
+            foul={hFoul}
+            strike={hStrike}
+            ball={hBall}
+            stateStrike={homeStrike}
+            stateHits={homeHits}
+            stateOut={homeOut}
+            stateBall={homeBall}
+            stateRuns={homeRuns}
+            team={homeTeam}
+          />
+        </div>
+        <div className="contain">
+          <Veiw
+            className="contain"
+            out={aOut}
+            hit={aHit}
+            foul={aFoul}
+            strike={aStrike}
+            ball={aBall}
+            stateStrike={awayStrike}
+            stateHits={awayHits}
+            stateOut={awayOut}
+            stateBall={awayBall}
+            stateRuns={awayRuns}
+            team={awayTeam}
+          />
+        </div>
+      </div>
     </div>
   );
 }
